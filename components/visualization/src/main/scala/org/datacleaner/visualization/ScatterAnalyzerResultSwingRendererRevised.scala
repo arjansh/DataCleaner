@@ -23,10 +23,10 @@ import org.datacleaner.result.ResultProducer
 import org.datacleaner.result.DefaultResultProducer
 import org.datacleaner.result.AnnotatedRowsResult
 import org.datacleaner.result.renderer.RendererFactory
+import collection.JavaConversions._
 
 @RendererBean(classOf[SwingRenderingFormat])
-@Deprecated
-class ScatterAnalyzerResultSwingRenderer extends Renderer[ScatterAnalyzerResult, JPanel] {
+class ScatterAnalyzerResultSwingRendererRevised extends Renderer[ScatterAnalyzerResultRevised, JPanel] {
   
   @Inject
   @Provided
@@ -36,9 +36,9 @@ class ScatterAnalyzerResultSwingRenderer extends Renderer[ScatterAnalyzerResult,
   @Provided
   var rendererFactory: RendererFactory = null
 
-  override def getPrecedence(result: ScatterAnalyzerResult) = RendererPrecedence.HIGH
+  override def getPrecedence(result: ScatterAnalyzerResultRevised) = RendererPrecedence.HIGH
 
-  override def render(result: ScatterAnalyzerResult): JPanel = {
+  override def render(result: ScatterAnalyzerResultRevised): JPanel = {
     val xAxisLabel = result.variable1.getName();
     val yAxisLabel = result.variable2.getName();
 
@@ -47,7 +47,7 @@ class ScatterAnalyzerResultSwingRenderer extends Renderer[ScatterAnalyzerResult,
     result.groups.foreach(group => {
       val xySeries = new XYSeries(group.name)
       group.getCoordinates.foreach(xy => {
-        xySeries.add(xy._1, xy._2);
+        xySeries.add(xy.getX(), xy.getY());
       })
       dataset.addSeries(xySeries)
     });
@@ -72,7 +72,7 @@ class ScatterAnalyzerResultSwingRenderer extends Renderer[ScatterAnalyzerResult,
             val dataItem = series.getDataItem(itemIndex);
 
             val group = result.groups()(seriesIndex)
-            val rowAnnotation = group.getRowAnnotation((dataItem.getX(), dataItem.getY()));
+            val rowAnnotation = group.getRowAnnotation(dataItem.getX(), dataItem.getY());
             val rowAnnotationFactory = group.getRowAnnotationFactory();
             
             val resultProducer = new DefaultResultProducer(new AnnotatedRowsResult(rowAnnotation, rowAnnotationFactory))

@@ -12,14 +12,13 @@ import org.datacleaner.result.renderer.HtmlRenderingFormat
 import org.datacleaner.result.html.HtmlRenderer
 
 @RendererBean(classOf[HtmlRenderingFormat])
-@Deprecated
-class ScatterAnalyzerResultHtmlRenderer extends HtmlRenderer[ScatterAnalyzerResult] {
+class ScatterAnalyzerResultHtmlRendererRevised extends HtmlRenderer[ScatterAnalyzerResultRevised] {
 
-  override def handleFragment(frag: SimpleHtmlFragment, result: ScatterAnalyzerResult, context: HtmlRenderingContext) {
+  override def handleFragment(frag: SimpleHtmlFragment, result: ScatterAnalyzerResultRevised, context: HtmlRenderingContext) {
     val elementId = context.createElementId()
 
     frag.addHeadElement(ScatterAnalyzerResuableChartHeadElement)
-    frag.addHeadElement(new ScatterAnalyzerChartScriptHeadElement(result, elementId));
+    frag.addHeadElement(new ScatterAnalyzerChartScriptHeadElementRevised(result, elementId));
 
     val html =
       <div class="scatterAnalyzerDiv">
