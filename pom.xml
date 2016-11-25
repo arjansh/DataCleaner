@@ -3,6 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
 		<!-- Maven plugin versions -->
 		<javadoc.version>2.10.3</javadoc.version>
@@ -44,7 +45,7 @@
 	
 	<groupId>org.eobjects.datacleaner</groupId>
 	<artifactId>DataCleaner</artifactId>
-	<version>5.1.4-SNAPSHOT</version>
+	<version>5.1.6-SNAPSHOT</version>
 	<name>DataCleaner parent</name>
 	<description>DataCleaner is the premier open source data quality solution. Use it to
 		discover, analyze, profile, diagnose and monitor the state of your data. DataCleaner works with
@@ -1449,6 +1450,11 @@
 				<artifactId>easymock</artifactId>
 				<version>${easymock.version}</version>
 				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>io.rest-assured</groupId>
+				<artifactId>rest-assured</artifactId>
+				<version>3.0.1</version>
 			</dependency>
 			<dependency>
 				<groupId>org.scalatest</groupId>

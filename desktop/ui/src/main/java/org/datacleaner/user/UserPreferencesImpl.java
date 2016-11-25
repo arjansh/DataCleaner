@@ -77,8 +77,8 @@ public class UserPreferencesImpl implements UserPreferences, Serializable {
     private List<UserDatabaseDriver> databaseDrivers = new ArrayList<>();
     private List<ExtensionPackage> extensionPackages = new ArrayList<>();
     private List<Datastore> userDatastores = new ArrayList<>();
-    private List<Dictionary> userDictionaries = new ArrayList<>();
-    private List<StringPattern> userStringPatterns = new ArrayList<>();
+    private final List<Dictionary> userDictionaries = new ArrayList<>();
+    private final List<StringPattern> userStringPatterns = new ArrayList<>();
     private List<SynonymCatalog> userSynonymCatalogs = new ArrayList<>();
     private Map<String, String> additionalProperties = new HashMap<>();
 
@@ -258,7 +258,8 @@ public class UserPreferencesImpl implements UserPreferences, Serializable {
         if (recentJobFiles == null || recentJobFiles.isEmpty()) {
             recentJobFiles = new ArrayList<>();
             final File dcHome = VFSUtils.toFile(DataCleanerHome.get());
-            final List<String> demoJobPaths = DemoConfiguration.getAllJobFilePaths();
+
+            final List<String> demoJobPaths = DataCleanerHome.getAllInitialFiles();
             for (String demoJobPath : demoJobPaths) {
                 recentJobFiles.add(new File(dcHome, demoJobPath));
             }
@@ -287,9 +288,6 @@ public class UserPreferencesImpl implements UserPreferences, Serializable {
 
     @Override
     public List<Dictionary> getUserDictionaries() {
-        if (userDictionaries == null) {
-            userDictionaries = new ArrayList<Dictionary>();
-        }
         return userDictionaries;
     }
 
@@ -311,9 +309,6 @@ public class UserPreferencesImpl implements UserPreferences, Serializable {
 
     @Override
     public List<StringPattern> getUserStringPatterns() {
-        if (userStringPatterns == null) {
-            userStringPatterns = new ArrayList<StringPattern>();
-        }
         return userStringPatterns;
     }
 
